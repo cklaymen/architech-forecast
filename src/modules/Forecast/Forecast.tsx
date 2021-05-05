@@ -16,9 +16,13 @@ const Forecast: FC = () => {
     return null;
   }
 
+  const avgWeekPressure =
+    data.list.reduce((sum, it) => it.main.pressure + sum, 0) / data.list.length;
+
   return (
     <>
-      {data.city.name} {data.city.country}
+      {data.city.name} {data.city.country} | Avg week pressure:{" "}
+      {avgWeekPressure.toFixed(2)} hPa
       <WeekBoard meteoData={data.list} />
     </>
   );

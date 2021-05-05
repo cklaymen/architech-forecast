@@ -12,3 +12,5 @@ export const TileGroupWrapper = styled.div`
 export const GroupTitle = styled.h3`
   margin: 0;
 `;
+
+export const Summary = styled.div``;
