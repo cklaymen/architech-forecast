@@ -24,6 +24,7 @@ export const SearchButton = styled.button`
   font-size: 24px;
   padding: 15px 20px;
   margin-left: 10px;
+  cursor: pointer;
 
   background-color: ${colors.darkBlue};
   color: ${colors.white};
