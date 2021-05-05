@@ -1,29 +1,25 @@
 import { FC } from "react";
 import { useParams } from "react-router";
 import useForecast from "./useForecast";
+import WeekBoard from "./WeekBoard/WeekBoard";
 
 const Forecast: FC = () => {
   const { cityName } = useParams<{ cityName: string }>();
   const { data, code } = useForecast(cityName);
 
+  if (!data) {
+    if (code === "404") {
+      return <h1>{cityName} not found.</h1>;
+    } else if (code) {
+      return <h1>Something went wrong ({code})</h1>;
+    }
+    return null;
+  }
+
   return (
     <>
-      _FORECAST_ {code === "404" && `${cityName} not found!`}
-      {data?.city.name} {data?.city.country}
-      {data?.list.map((it, i) => (
-        <ul key={i}>
-          {it.date.toLocaleString()}
-          <li>temp: {Math.round(it.main.temp)}°C</li>
-          <li>feels like: {Math.round(it.main.feels_like)}°C</li>
-          <li>pressure: {it.main.pressure}hPa (sea level)</li>
-          <li>humidity: {it.main.humidity}%</li>
-          {it.weather.map((it, i) => (
-            <li key={i}>
-              {it.main} <img src={it.iconUrl} alt={it.description} />
-            </li>
-          ))}
-        </ul>
-      ))}
+      {data.city.name} {data.city.country}
+      <WeekBoard meteoData={data.list} />
     </>
   );
 };

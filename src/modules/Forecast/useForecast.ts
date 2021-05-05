@@ -25,25 +25,28 @@ interface OpenweatherData {
   }>;
 }
 
-interface ForecastData {
+export interface MeteoData {
+  date: Date;
+  main: {
+    temp: number;
+    feels_like: number;
+    pressure: number;
+    humidity: number;
+  };
+  weather: Array<{
+    main: string;
+    description: string;
+    iconUrl: string;
+    isNight: boolean;
+  }>;
+}
+
+export interface ForecastData {
   city: {
     name: string;
     country: string;
   };
-  list: Array<{
-    date: Date;
-    main: {
-      temp: number;
-      feels_like: number;
-      pressure: number;
-      humidity: number;
-    };
-    weather: Array<{
-      main: string;
-      description: string;
-      iconUrl: string;
-    }>;
-  }>;
+  list: Array<MeteoData>;
 }
 
 const getWeatherApiUrl = (cityName: string) =>
@@ -72,6 +75,7 @@ const mapOpenweatherData = (openweatherData: OpenweatherData): ForecastData => {
           main,
           description,
           iconUrl: `https://openweathermap.org/img/wn/${icon}.png`,
+          isNight: icon.includes("n"),
         })),
       })
     ),
