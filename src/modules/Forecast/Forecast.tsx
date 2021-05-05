@@ -1,6 +1,8 @@
 import { FC } from "react";
 import { useParams } from "react-router";
+
 import useForecast from "./useForecast";
+import Summary from "./WeekBoard/Summary/Summary";
 import WeekBoard from "./WeekBoard/WeekBoard";
 
 const Forecast: FC = () => {
@@ -16,13 +18,9 @@ const Forecast: FC = () => {
     return null;
   }
 
-  const avgWeekPressure =
-    data.list.reduce((sum, it) => it.main.pressure + sum, 0) / data.list.length;
-
   return (
     <>
-      {data.city.name} {data.city.country} | Avg week pressure:{" "}
-      {avgWeekPressure.toFixed(2)} hPa
+      <Summary forecastData={data} />
       <WeekBoard meteoData={data.list} />
     </>
   );

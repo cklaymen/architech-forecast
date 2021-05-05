@@ -8,7 +8,9 @@ export const SearchWrapper = styled.form`
 `;
 
 export const SearchInput = styled.input`
-  flex: 1;
+  flex-grow: 1;
+  min-width: 3em;
+  box-sizing: border-box;
   padding: 15px 20px;
   font-size: 24px;
   border: 3px solid ${colors.lightBlue};
