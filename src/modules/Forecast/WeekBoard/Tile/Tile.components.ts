@@ -9,6 +9,7 @@ export const TileWrapper = styled.div<{ color: "light" | "dark" }>`
   padding: 5px 15px;
   background-color: #fffce4;
   font-size: 9px;
+  width: 220px;
   background-color: ${colors.lightBlue};
   ${(p) =>
     p.color === "dark" &&

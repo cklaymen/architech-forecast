@@ -1,4 +1,5 @@
 import { FC } from "react";
+
 import { MeteoData } from "../useForecast";
 import TileGroup from "./TileGroup/TileGroup";
 
@@ -36,7 +37,9 @@ const WeekBoard: FC<Props> = ({ meteoData }) => {
         {groupedMeteoData.map((meteoData, i) => (
           <TileGroup
             key={i}
-            title={days[meteoData[0].date.getDay()]}
+            title={`${
+              days[meteoData[0].date.getDay()]
+            } ${meteoData[0].date.toLocaleDateString()}`}
             meteoData={meteoData}
           />
         ))}

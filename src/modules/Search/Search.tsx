@@ -1,27 +1,29 @@
 import { FC, useState } from "react";
-import { useHistory } from "react-router";
+import { useHistory, useParams } from "react-router";
 
-import { SearchButton, SearchInput } from "./Search.components";
+import { SearchButton, SearchInput, SearchWrapper } from "./Search.components";
 
 const Search: FC = () => {
-  const [cityName, setCityName] = useState("");
+  const { cityName: cityNameFromUrl } = useParams<{ cityName?: string }>();
+  const [cityName, setCityName] = useState(cityNameFromUrl || "");
   const { push } = useHistory();
 
   return (
-    <>
+    <SearchWrapper
+      onSubmit={(e) => {
+        e.preventDefault();
+        push(encodeURI(cityName));
+      }}
+    >
       <SearchInput
-        type="url"
+        type="text"
         value={cityName}
         onChange={({ target: { value } }) => setCityName(value)}
       />
-      <SearchButton
-        type="submit"
-        onClick={() => push(encodeURI(cityName.toLowerCase()))}
-        disabled={!cityName}
-      >
+      <SearchButton type="submit" disabled={!cityName}>
         Search
       </SearchButton>
-    </>
+    </SearchWrapper>
   );
 };
 
