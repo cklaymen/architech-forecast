@@ -1,9 +1,11 @@
 import { FC } from "react";
 import { useParams } from "react-router";
+import { Bar } from "react-chartjs-2";
 
 import useForecast from "./useForecast";
 import Summary from "./WeekBoard/Summary/Summary";
 import WeekBoard from "./WeekBoard/WeekBoard";
+import colors from "../common/colors";
 
 const Forecast: FC = () => {
   const { cityName } = useParams<{ cityName: string }>();
@@ -22,6 +24,21 @@ const Forecast: FC = () => {
     <>
       <Summary forecastData={data} />
       <WeekBoard meteoData={data.list} />
+      <Bar
+        data={{
+          labels: data.list.map((it) => it.date.toLocaleString()),
+          datasets: [
+            {
+              label: "Temperature",
+              data: data.list.map((it) => it.main.temp),
+              backgroundColor: data.list.map((it) =>
+                it.weather[0].isNight ? colors.darkBlue : colors.lightBlue
+              ),
+            },
+          ],
+        }}
+        type="bar"
+      />
     </>
   );
 };
